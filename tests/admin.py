@@ -1,4 +1,4 @@
-from tests.models import Test, Question, Answer
+from testcreator.tests.models import Test, Question, Answer
 from django.contrib import admin
 
 admin.site.register(Test)
