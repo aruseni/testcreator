@@ -1,0 +1,39 @@
+body {
+   font-size: 14px;
+   font-family: arial, helvetica, sans-serif;
+   color: #000;
+   background-color: #fff;
+}
+
+html, body{
+   margin:0;
+   padding:0;
+   height:100%;
+   border:none
+}
+
+a, a:link {
+   font-weight: bold;
+   color: #732e6b;
+}
+
+a:visited {
+   font-weight: bold;
+   color: #732e6b;
+}
+
+input {
+   vertical-align: middle;
+}
+
+label {
+   vertical-align: middle;
+}
+
+p.answer {
+   margin: 20px;
+}
+
+p.answer a {
+   margin-left: 20px;
+}
