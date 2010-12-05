@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script src="/static/jquery-1.4.4.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+ $(document).ready(function(){
+   $("#add_test_link").click(function(event){
+     $("#add_test_link").fadeOut("normal", function() {
+       $("#add_test_form").fadeIn("normal");
+     });
+     event.preventDefault();
+   });
+   function delete_answer (event) {
+    $(this).parent().fadeOut("normal", function() {
+      $(this).html("");
+    });
+    event.preventDefault();
+   }
+   $("p.answer a").click(delete_answer);
+   var new_answers = 0; // How many new answers has the user added?
+   $("#add_answer_link").click(function(event){
+     new_answers++;
+     $("#answers").append('<p class="answer"><label for="new_'+new_answers+'">Ответ:</label> <input type="text" name="new_'+new_answers+'" id="new_'+new_answers+'" value=""> <input type="checkbox" name="new_'+new_answers+'_true" id="new_'+new_answers+'_true" value="true"> <label for="new_'+new_answers+'_true">Правильный ответ</label> <a href="/">Удалить</a></p>');
+     $("p.answer a").click(delete_answer);
+     event.preventDefault();
+   });
+ });
+  </script>
+  <link rel="stylesheet" type="text/css" href="/static/base.css">
+  <title>{% block title %}testcreator{% endblock %}</title>
+</head>
+<body>
+<div style="background-color: #804678; padding-top: 5px; padding-bottom: 5px; padding-left: 20px; border-bottom: 8px solid #fff; -moz-border-bottom-colors: #ffffff #f2ebf1 #e0cede #ccb4c9 #b08bab #966991 #75446f #4d1f47;">
+  <h1><a href="/" style="color: #ffffff; text-decoration: none;">testcreator</a></h1>
+</div>
+<div style="padding: 10px;">
+{% block content %}{% endblock %}
+</div>
+</body>
+</html>
