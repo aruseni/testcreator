@@ -11,7 +11,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Example:
-    # (r'^testcreator/', include('testcreator.foo.urls')),
+    (r'^', include('testcreator.tests.urls')),
 
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': os.path.join(PROJECT_ROOT, 'media')}),
