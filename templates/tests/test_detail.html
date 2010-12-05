@@ -1,0 +1,16 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+  <h2 style="margin-bottom: 35px;">{{ test.title }}</h2>
+{% if question_list %}
+{% for question in question_list %}
+  <p style="font-size: 14px;">{{ question.title }}</p>
+{% endfor %}
+{% endif %}
+  <div style="margin-top: 50px;">
+    <p id="add_test_link"><a href="/test_{{ test.id }}/add_question/">Добавить вопрос</a></p>
+    <form action="/test_{{ test.id }}/add_question/" id="add_test_form" style="display: none;">
+      <p><input type="text"> <input type="submit" value="Добавить вопрос"></p>
+    </form>
+  </div>
+{% endblock %}

@@ -11,6 +11,12 @@
      });
      event.preventDefault();
    });
+   $("#add_question_link").click(function(event){
+     $("#add_question_link").fadeOut("normal", function() {
+       $("#add_question_form").fadeIn("normal");
+     });
+     event.preventDefault();
+   });
    function delete_answer (event) {
     $(this).parent().fadeOut("normal", function() {
       $(this).html("");
