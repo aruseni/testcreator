@@ -1,5 +1,7 @@
 {% extends "tests/base.html" %}
 
+{% block title %}{{ question.title }}{% endblock %}
+
 {% block content %}
   <h2 style="margin-bottom: 35px;">{{ question.test.title }}</h2>
   <h3 style="margin-bottom: 50px;">{{ question.title }}</h3>

@@ -1,5 +1,7 @@
 {% extends "tests/base.html" %}
 
+{% block title %}{{ test.title }}{% endblock %}
+
 {% block content %}
   <h2 style="margin-bottom: 35px;">{{ test.title }}</h2>
 {% if question_list %}
