@@ -1,0 +1,19 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+  <h2 style="margin-bottom: 35px;">{{ question.test.title }}</h2>
+  <h3 style="margin-bottom: 50px;">{{ question.title }}</h3>
+  <form action="/test_{{ question.test.id }}/edit_question/" id="add_test_form">
+    <p><label for="question_{{ question.id }}">Вопрос:</label> <input type="text" name="question_{{ question.id }}" value="{{ question.title }}" id="question_{{ question.id }}" size="55"></p>
+    <div id="answers">
+{% if answer_list %}
+{% for answer in answer_list %}
+      <p class="answer"><label for="answer_{{ answer.id }}">Ответ:</label> <input type="text" name="answer_{{ answer.id }}" id="answer_{{ answer.id }}" value="{{ answer.title }}"> <input type="checkbox" name="answer_{{ answer.id }}_true" id="answer_{{ answer.id }}_true" value="true"{% if answer.is_true %} checked="checked"{% endif %}> <label for="answer_{{ answer.id }}_true">Правильный ответ</label> <a href="/delete_answer_{{ answer.id }}/">Удалить</a></p>
+{% endfor %}
+{% endif %}
+    </div>
+    <p id="add_answer_link"><a href="/question_{{ question.id }}/add_answer/">Добавить ответ</a></p>
+    <p><input type="submit" value="Сохранить"></p>
+    <p style="margin-top: 50px;"><a href="/delete_question_{{ question.id }}/">Удалить вопрос</a></p>
+  </form>
+{% endblock %}
