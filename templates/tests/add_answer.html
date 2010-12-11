@@ -1,0 +1,13 @@
+{% extends "tests/base.html" %}
+
+{% block title %}{{ question.title }}{% endblock %}
+
+{% block content %}
+  <h2 style="margin-bottom: 35px;">{{ question.test.title }}</h2>
+  <h3 style="margin-bottom: 50px;">{{ question.title }}</h3>
+  <form action="{% url testcreator.tests.views.add_answer question.id %}" id="add_question_form" method="post">
+{% csrf_token %}
+    <p class="answer"><label for="answer">Ответ:</label> <input type="text" name="answer" id="answer" value=""> <input type="checkbox" name="answer_true" id="answer_true" value="true"> <label for="answer_true">Правильный ответ</label></p>
+    <p><input type="submit" value="Добавить ответ"></p>
+  </form>
+{% endblock %}

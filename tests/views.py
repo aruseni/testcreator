@@ -43,3 +43,19 @@ def delete_question(request, question_id):
     test = question.test
     question.delete()
     return HttpResponseRedirect(reverse('testcreator.tests.views.test_detail', args=(test.id,)))
+
+def add_answer(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+    if request.method == "POST":
+        title = request.POST.get("answer", "");
+        is_true = request.POST.get("answer_true", "");
+        if title:
+            answer = Answer()
+            answer.title = title
+            if is_true:
+                answer.is_true = True
+            answer.question = question
+            answer.save()
+        return HttpResponseRedirect(reverse('testcreator.tests.views.question_detail', args=(question.id,)))
+    return render_to_response('tests/add_answer.html', {'question': question,},
+    context_instance=RequestContext(request))
