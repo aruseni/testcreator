@@ -35,3 +35,9 @@ def edit_question(request, question_id):
                 answer.is_true = True
             answer.save()
     return HttpResponseRedirect(reverse('testcreator.tests.views.question_detail', args=(question.id,)))
+
+def delete_question(request, question_id):
+    question = get_object_or_404(Question, id=question_id)
+    test = question.test
+    question.delete()
+    return HttpResponseRedirect(reverse('testcreator.tests.views.test_detail', args=(test.id,)))

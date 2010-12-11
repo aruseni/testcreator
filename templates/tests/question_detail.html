@@ -17,6 +17,6 @@
     </div>
     <p id="add_answer_link"><a href="/question_{{ question.id }}/add_answer/">Добавить ответ</a></p>
     <p><input type="submit" value="Сохранить"></p>
-    <p style="margin-top: 50px;"><a href="/delete_question_{{ question.id }}/">Удалить вопрос</a></p>
+    <p style="margin-top: 50px;"><a href="{% url testcreator.tests.views.delete_question question.id %}">Удалить вопрос</a></p>
   </form>
 {% endblock %}
