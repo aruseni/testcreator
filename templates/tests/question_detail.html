@@ -5,7 +5,8 @@
 {% block content %}
   <h2 style="margin-bottom: 35px;">{{ question.test.title }}</h2>
   <h3 style="margin-bottom: 50px;">{{ question.title }}</h3>
-  <form action="/test_{{ question.test.id }}/edit_question/" id="add_test_form">
+  <form action="{% url testcreator.tests.views.edit_question question.id %}" id="edit_question_form" method="post">
+{% csrf_token %}
     <p><label for="question_{{ question.id }}">Вопрос:</label> <input type="text" name="question_{{ question.id }}" value="{{ question.title }}" id="question_{{ question.id }}" size="55"></p>
     <div id="answers">
 {% if answer_list %}
