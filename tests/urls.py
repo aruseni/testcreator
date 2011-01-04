@@ -8,4 +8,5 @@ urlpatterns = patterns('testcreator.tests.views',
     (r'^delete_question_(?P<question_id>\d+)/$', 'delete_question'),
     (r'^delete_answer_(?P<answer_id>\d+)/$', 'delete_answer'),
     (r'^add_answer_for_question_(?P<question_id>\d+)/$', 'add_answer'),
+    (r'^test_(?P<test_id>\d+)/add_question/$', 'add_question'),
 )

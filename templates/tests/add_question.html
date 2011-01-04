@@ -1,0 +1,12 @@
+{% extends "tests/base.html" %}
+
+{% block title %}{{ test.title }}{% endblock %}
+
+{% block content %}
+  <h2 style="margin-bottom: 50px;">{{ test.title }}</h2>
+  <form action="{% url testcreator.tests.views.add_question test.id %}" id="add_question_form" method="post">
+{% csrf_token %}
+    <p class="question"><label for="question">Вопрос:</label> <input type="text" name="question" id="question" value=""></p>
+    <p><input type="submit" value="Добавить вопрос"></p>
+  </form>
+{% endblock %}

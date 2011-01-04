@@ -14,7 +14,8 @@ def index(request):
 def test_detail(request, test_id):
     test = get_object_or_404(Test, id=test_id)
     questions = test.question_set.all()
-    return render_to_response('tests/test_detail.html', {'test': test, 'question_list': questions,})
+    return render_to_response('tests/test_detail.html', {'test': test, 'question_list': questions,},
+    context_instance=RequestContext(request))
 
 def question_detail(request, question_id):
     question = get_object_or_404(Question, id=question_id)
@@ -64,4 +65,17 @@ def add_answer(request, question_id):
             answer.save()
         return HttpResponseRedirect(reverse('testcreator.tests.views.question_detail', args=(question.id,)))
     return render_to_response('tests/add_answer.html', {'question': question,},
+    context_instance=RequestContext(request))
+
+def add_question(request, test_id):
+    test = get_object_or_404(Test, id=test_id)
+    if request.method == "POST":
+        title = request.POST.get("question", "");
+        if title:
+            question = Question()
+            question.title = title
+            question.test = test
+            question.save()
+        return HttpResponseRedirect(reverse('testcreator.tests.views.test_detail', args=(test.id,)))
+    return render_to_response('tests/add_question.html', {'test': test,},
     context_instance=RequestContext(request))
