@@ -56,6 +56,11 @@ def delete_question(request, question_id):
     question.delete()
     return HttpResponseRedirect(reverse('testcreator.tests.views.test_detail', args=(test.id,)))
 
+def delete_test(request, test_id):
+    test = get_object_or_404(Test, id=test_id)
+    test.delete()
+    return HttpResponseRedirect(reverse('testcreator.tests.views.index'))
+
 def delete_answer(request, answer_id):
     answer = get_object_or_404(Answer, id=answer_id)
     question = answer.question
