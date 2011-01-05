@@ -1,0 +1,10 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+  <h2 style="margin-bottom: 50px;">{{ test.title }}</h2>
+  <form action="{% url testcreator.tests.views.add_test %}" id="add_test_form" method="post">
+{% csrf_token %}
+    <p class="test"><label for="test">Тест:</label> <input type="text" name="test" id="test" value=""></p>
+    <p><input type="submit" value="Добавить тест"></p>
+  </form>
+{% endblock %}

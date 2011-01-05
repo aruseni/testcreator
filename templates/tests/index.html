@@ -8,9 +8,10 @@
 {% endfor %}
 {% endif %}
   <div style="margin-top: 50px;">
-    <p id="add_test_link"><a href="/add/">Добавить тест</a></p>
-    <form action="/add/" id="add_test_form" style="display: none;">
-      <p><input type="text"> <input type="submit" value="Добавить тест"></p>
+    <p id="add_test_link"><a href="{% url testcreator.tests.views.add_test %}">Добавить тест</a></p>
+    <form action="{% url testcreator.tests.views.add_test %}" method="post" id="add_test_form" style="display: none;">
+      {% csrf_token %}
+      <p><input type="text" name="test"> <input type="submit" value="Добавить тест"></p>
     </form>
   </div>
 {% endblock %}

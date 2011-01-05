@@ -19,7 +19,8 @@ from testcreator.tests.models import Test, Question, Answer
 
 def index(request):
     tests = Test.objects.all()
-    return render_to_response('tests/index.html', {'test_list': tests,})
+    return render_to_response('tests/index.html', {'test_list': tests,},
+    context_instance=RequestContext(request))
 
 def test_detail(request, test_id):
     test = get_object_or_404(Test, id=test_id)
@@ -89,6 +90,16 @@ def add_question(request, test_id):
         return HttpResponseRedirect(reverse('testcreator.tests.views.test_detail', args=(test.id,)))
     return render_to_response('tests/add_question.html', {'test': test,},
     context_instance=RequestContext(request))
+
+def add_test(request):
+    if request.method == "POST":
+        title = request.POST.get("test", "");
+        if title:
+            test = Test()
+            test.title = title
+            test.save()
+            return HttpResponseRedirect(reverse('testcreator.tests.views.test_detail', args=(test.id,)))
+    return render_to_response('tests/add_test.html', {}, context_instance=RequestContext(request))
 
 # export_to_pdf_page generates two links to two files with the same random questions
 # for using by both examiner and student.
