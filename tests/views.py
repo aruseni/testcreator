@@ -1,9 +1,19 @@
+# -*- coding: utf-8 -*-
+
 # Create your views here.
 
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.template.loader import render_to_string
+
+from testcreator.settings import MEDIA_ROOT
+
+import ho.pisa as ps
+import cStringIO
+
+import random
 
 from testcreator.tests.models import Test, Question, Answer
 
@@ -79,3 +89,51 @@ def add_question(request, test_id):
         return HttpResponseRedirect(reverse('testcreator.tests.views.test_detail', args=(test.id,)))
     return render_to_response('tests/add_question.html', {'test': test,},
     context_instance=RequestContext(request))
+
+# export_to_pdf_page generates two links to two files with the same random questions
+# for using by both examiner and student.
+
+def export_to_pdf_page(request, test_id, questions):
+    questions = int(questions)
+    test = get_object_or_404(Test, id=test_id)
+    # if the test doesn't have enough questions, simply select all of the test questions
+    questions_in_test = test.question_set.all().count()
+    if questions > questions_in_test:
+        questions = questions_in_test
+    question_list = random.sample(Question.objects.all(), questions)
+    question_ids = []
+    for question in question_list:
+        question_ids += [str(question.id)]
+    questions_string = ",".join(question_ids)
+    return render_to_response('tests/export_to_pdf_page.html', {'test': test, 'question_list': questions_string,},
+    context_instance=RequestContext(request))
+
+def export_to_pdf(request, test_id, reader):
+    test = get_object_or_404(Test, id=test_id)
+
+    questions = request.GET.get("questions", "");
+    if not questions:
+        return HttpResponse("No questions selected")
+    question_ids = questions.split(",")
+
+    question_list = []
+    for question_id in question_ids:
+        question = get_object_or_404(Question, id=question_id)
+        question_list += [question]
+
+    if reader in ("student", "examiner"):
+        text = render_to_string('tests/pdf_for_%s.html' % reader, { 'test': test, 'questions': question_list, 'media_root': MEDIA_ROOT })
+    else:
+        raise Http404
+
+    result = cStringIO.StringIO()
+    pdf = ps.CreatePDF(cStringIO.StringIO(text.encode('utf-8')), result, show_error_as_pdf=True, encoding='utf-8')
+    if not pdf.err:
+        response = HttpResponse(mimetype='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename=questions_for_test_%s_for_%s.pdf' % (test_id,
+        reader)
+        response.write(result.getvalue())
+        result.close()
+        return response
+
+    return HttpResponse("PDF")

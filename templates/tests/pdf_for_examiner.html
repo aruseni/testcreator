@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>testcreator</title>
+<style type="text/css">
+@font-face {
+	font-family: Arial;
+	src: url({{ media_root }}/arial.ttf);
+}
+div { font-family: arial; }
+</style>
+</head>
+<body>
+<div>
+<p>Название теста:</p>
+<h1>{{ test.title }}</h1>
+<p style="text-align: center;">Отметьте «галочкой» правильные варианты ответа.</p>
+{% for question in questions %}
+<p style="margin-top: 20px;">Вопрос: {{ question.title }}</p>
+<ol>
+{% for answer in question.answer_set.all %}
+<li>{{ answer.title }}{% if answer.is_true %} — правильный ответ{% endif %}</li>
+{% endfor %}
+</ol>
+{% endfor %}
+</div>
+</body>
+</html>

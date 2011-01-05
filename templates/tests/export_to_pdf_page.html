@@ -1,0 +1,8 @@
+{% extends "tests/base.html" %}
+
+{% block content %}
+  <h2 style="margin-bottom: 35px;">{{ test.title }}</h2>
+  <h2 style="margin-bottom: 50px;">Экспортировать в PDF</h2>
+  <p><a href="{% url testcreator.tests.views.export_to_pdf test.id "student" %}?questions={{ question_list }}">Для студента</a></p>
+  <p><a href="{% url testcreator.tests.views.export_to_pdf test.id "examiner" %}?questions={{ question_list }}">Для экзаменатора</a></p>
+{% endblock %}
