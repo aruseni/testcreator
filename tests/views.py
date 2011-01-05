@@ -93,8 +93,11 @@ def add_question(request, test_id):
 # export_to_pdf_page generates two links to two files with the same random questions
 # for using by both examiner and student.
 
-def export_to_pdf_page(request, test_id, questions):
-    questions = int(questions)
+def export_to_pdf_page(request, test_id):
+    try:
+        questions = int(request.GET.get("questions", ""))
+    except ValueError:
+        questions = 0
     test = get_object_or_404(Test, id=test_id)
     # if the test doesn't have enough questions, simply select all of the test questions
     questions_in_test = test.question_set.all().count()

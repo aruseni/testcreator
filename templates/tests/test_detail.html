@@ -16,4 +16,10 @@
       <p><input type="text" name="question"> <input type="submit" value="Добавить вопрос"></p>
     </form>
   </div>
+  <div style="margin-top: 50px;">
+    <p style="font-weight: bold;">Экспорт случайно выбранных вопросов в PDF</p>
+    <form action="{% url testcreator.tests.views.export_to_pdf_page test.id %}" id="export_questions_form" method="get">
+      <p><label for="questions">Число вопросов:</label> <input type="text" name="questions" id="questions" size="4"> <input type="submit" value="Экспортировать"></p>
+    </form>
+  </div>
 {% endblock %}

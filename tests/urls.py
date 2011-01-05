@@ -9,6 +9,6 @@ urlpatterns = patterns('testcreator.tests.views',
     (r'^delete_answer_(?P<answer_id>\d+)/$', 'delete_answer'),
     (r'^add_answer_for_question_(?P<question_id>\d+)/$', 'add_answer'),
     (r'^test_(?P<test_id>\d+)/add_question/$', 'add_question'),
-    (r'^test_(?P<test_id>\d+)/export_(?P<questions>\d+)_questions_to_pdf/$', 'export_to_pdf_page'),
+    (r'^test_(?P<test_id>\d+)/export_questions_to_pdf/$', 'export_to_pdf_page'),
     (r'^test_(?P<test_id>\d+)/export_to_pdf_for_(?P<reader>\w+)/$', 'export_to_pdf'),
 )
