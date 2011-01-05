@@ -5,13 +5,15 @@
 {% block content %}
   <h2 style="margin-bottom: 35px;">{{ test.title }}</h2>
 {% if question_list %}
+<ul>
 {% for question in question_list %}
-  <p style="font-size: 14px;">{{ question.title }}</p>
+  <li style="font-size: 14px;"><a href="{% url testcreator.tests.views.question_detail question.id %}">{{ question.title }}</a></li>
 {% endfor %}
+</ul>
 {% endif %}
-  <div style="margin-top: 50px;">
-    <p id="add_test_link"><a href="/test_{{ test.id }}/add_question/">Добавить вопрос</a></p>
-    <form action="/test_{{ test.id }}/add_question/" id="add_test_form" style="display: none;" method="post">
+  <div style="margin-top: 35px; height: 50px;">
+    <p id="add_test_link"><a href="{% url testcreator.tests.views.add_question test.id %}">Добавить вопрос</a></p>
+    <form action="{% url testcreator.tests.views.add_question test.id %}" id="add_test_form" style="display: none;" method="post">
 {% csrf_token %}
       <p><input type="text" name="question"> <input type="submit" value="Добавить вопрос"></p>
     </form>
