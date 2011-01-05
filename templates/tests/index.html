@@ -4,7 +4,7 @@
   <h2 style="margin-bottom: 35px;">Тесты</h2>
 {% if test_list %}
 {% for test in test_list %}
-  <p style="font-size: 20px; margin: 15px;">{{ test.title }}</p>
+  <p style="font-size: 20px; margin: 15px;"><a href="{% url testcreator.tests.views.test_detail test.id %}">{{ test.title }}</a></p>
 {% endfor %}
 {% endif %}
   <div style="margin-top: 50px;">
